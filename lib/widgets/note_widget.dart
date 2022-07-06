@@ -18,7 +18,17 @@ return new AlertDialog(
 
 
         ],
+
     ),
+  actions: <Widget>[
+    TextButton(onPressed: ()=>Navigator.pop(context,'OK'),
+      child:const Text('OK'),
+
+
+        ),
+        TextButton(onPressed: ()=>Navigator.pop(context,'CANCEL'),
+  child:const Text('CANCEL'),),
+  ],
   );
 
 
