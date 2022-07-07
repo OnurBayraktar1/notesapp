@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notesapp/pages/LoginPage.dart';
+import 'package:notesapp/pages/RegisterPage.dart';
 
 import '../widgets/empty_note_widget.dart';
 import '../widgets/note_widget.dart';

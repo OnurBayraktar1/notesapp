@@ -1,6 +1,9 @@
 import 'dart:js';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notesapp/pages/LoginPage.dart';
+import 'package:notesapp/pages/RegisterPage.dart';
 import 'package:notesapp/pages/emptynote.dart';
 
 void main() {
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: EmptyNotePage(),
+      home: LoginPage(),
     );
   }
 }
