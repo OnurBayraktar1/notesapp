@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:notesapp/pages/LoginPage.dart';
+import 'package:notesapp/services/auth.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -9,6 +10,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController _nameController=TextEditingController();
+  final TextEditingController _emailController=TextEditingController();
+  final TextEditingController _passwordController=TextEditingController();
+  final TextEditingController _passwordAgainController=TextEditingController();
+
+  AuthService _authService=AuthService();
   final formKey = GlobalKey<FormState>();
 final TextEditingController _pass=TextEditingController();
   @override
@@ -69,7 +76,7 @@ if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value
               ),
               Container( padding: const EdgeInsets.only(bottom:10,top:10),
                   child:TextFormField(
-                    controller: _pass,
+                    controller: _passwordController,
                     decoration: const InputDecoration( prefixIcon: Padding(
                         padding: EdgeInsets.all(0),
                         child:Icon(Icons.lock_outline, color:Colors.black)
@@ -93,6 +100,7 @@ if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value
               ),
               Container( padding: const EdgeInsets.only(bottom:10,top:10),
                   child:TextFormField(
+                    controller: _passwordAgainController,
                     decoration: const InputDecoration(prefixIcon: Padding(
                         padding: EdgeInsets.all(0),
                         child:Icon(Icons.lock_outline, color:Colors.black)
@@ -121,22 +129,9 @@ if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value
                   child:ElevatedButton(
                     onPressed: (){
                       { if(formKey.currentState!.validate()){
-                        showModalBottomSheet<void>(
-                            context:context,
-                            builder:(BuildContext context) {
-                              return Container(
-                                  height:200,
-                                  child:Center(
-                                      child:Column(
-                                        mainAxisAlignment:MainAxisAlignment.center ,
-                                        children: <Widget>[
-                                          const Text("Register is success"),
-                                        ],
-                                      )
-                                  )
-                              );
-                            }
-                        );
+                        _authService.createPerson(_nameController.text, _emailController.text, _passwordController.text).then((value) {
+                      return Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));});
+
                       }
                       }
 

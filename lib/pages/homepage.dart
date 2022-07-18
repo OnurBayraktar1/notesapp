@@ -18,7 +18,7 @@ class _EmptyNotePageState extends State<EmptyNotePage> {
         centerTitle: true,
         title: const Text('MYNOTES',style: TextStyle(fontWeight: FontWeight.bold),) ,
       ),
-      body: EmptyNoteWidget(),
+      //body://EmptyNoteWidget(context),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add,color: Colors.white, size: 40),
         onPressed: () { showDialog(

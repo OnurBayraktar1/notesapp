@@ -1,12 +1,15 @@
 import 'dart:js';
 
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:notesapp/pages/LoginPage.dart';
-import 'package:notesapp/pages/RegisterPage.dart';
-import 'package:notesapp/pages/emptynote.dart';
 
-void main() {
+
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
