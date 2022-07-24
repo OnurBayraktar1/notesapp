@@ -34,6 +34,7 @@ final TextEditingController _pass=TextEditingController();
               const Text('Complete your details',style:TextStyle(color:Colors.black)),
               Container( padding: const EdgeInsets.only(bottom:10,top:10),
                 child:TextFormField(
+                  controller: _nameController,
                   decoration: const InputDecoration( prefixIcon: Padding(
                       padding: EdgeInsets.all(0),
                       child:Icon(Icons.person, color:Colors.black)
@@ -55,6 +56,7 @@ if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value
               ),
               Container( padding: const EdgeInsets.only(bottom:10,top:10),
                   child:TextFormField(
+                    controller: _emailController,
                     decoration: const InputDecoration(prefixIcon: Padding(
                         padding: EdgeInsets.all(0),
                         child:Icon(Icons.email, color:Colors.black)
@@ -109,11 +111,11 @@ if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value
                         labelText: 'Confirm Password'
                     ),
                     obscureText: true,
-                    validator: (value){
-                      if(value!.isEmpty ){
+                    validator: (_passwordAgainController){
+                      if(_passwordAgainController!.isEmpty ){
     return "It can't be empty";
     }
-                      if(value!=_pass.text){
+                      if(_passwordAgainController!=_passwordController.text){
                         return "not match";
                       }
 
@@ -130,7 +132,7 @@ if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value
                     onPressed: (){
                       { if(formKey.currentState!.validate()){
                         _authService.createPerson(_nameController.text, _emailController.text, _passwordController.text).then((value) {
-                      return Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));});
+                      return Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginPage()));});
 
                       }
                       }

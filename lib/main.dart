@@ -9,7 +9,14 @@ import 'package:notesapp/pages/LoginPage.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey:"AIzaSyBAicRvIBBGoXB7ni3wBGiqLB1QAH_25kE",
+        appId: "1:586326868384:web:e8b41073e5da949f6ce4c5",
+        messagingSenderId: "586326868384",
+        projectId: "noteapp-c59b2")
+  );
+
   runApp(MyApp());
 }
 
