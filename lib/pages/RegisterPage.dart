@@ -44,9 +44,10 @@ final TextEditingController _pass=TextEditingController();
                   ),
 
                   validator: (value){
+                    //if(!isValidName()){return "Enter valid name"}
 if(value!.isEmpty){return "Please enter your name";}
 
-if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value)){
+if(!RegExp(r"^\s*([A-Za-z]{onur,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value)){
   return "Enter valid name";
 } else {
   return null;}
@@ -68,7 +69,7 @@ if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value
                       if(value!.isEmpty ){
                         return "Please enter E-mail";
                       }
-                      if(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)){
+                      if(!RegExp(r'^[\w-@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)){
                         return "Enter correct Email";}
                       else {
                         return null;}

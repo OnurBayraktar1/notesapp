@@ -5,6 +5,8 @@ import 'package:notesapp/services/auth.dart';
 import 'package:notesapp/widgets/empty_note_widget.dart';
 import 'package:notesapp/widgets/note_widget.dart';
 
+import 'EditPage.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override
@@ -32,9 +34,9 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Icon(Icons.account_circle_sharp, size: 120),
-                Text('Sign with e-mail and password.',style:TextStyle(fontWeight: FontWeight.bold)),
+                const Text('Sign with e-mail and password.',style:TextStyle(fontWeight: FontWeight.bold)),
                 Container(
-padding: EdgeInsets.only(top:20),
+padding: const EdgeInsets.only(top:20),
                   child: TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration( prefixIcon: Padding(
@@ -90,7 +92,7 @@ validator: (_passwordController){
                       ),
                       onPressed: () { if(formKey.currentState!.validate()){
                         _authService.signIn(_emailController.text, _passwordController.text).then((value){
-                          return Navigator.push(context, MaterialPageRoute(builder: (context)=>EmptyNotePage()));
+                          return Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
                         });
 
 
@@ -114,7 +116,7 @@ validator: (_passwordController){
                     ),
                     onPressed: () { Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context)=>const RegisterPage()),
+                        MaterialPageRoute(builder: (context)=>RegisterPage()),
 
                     ); },
                 )
