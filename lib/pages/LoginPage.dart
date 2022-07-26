@@ -16,12 +16,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController=TextEditingController();
   final TextEditingController _passwordController=TextEditingController();
+  final ButtonStyle textButtonStyle=ElevatedButton.styleFrom(
+    primary:Colors.grey,
+    minimumSize: Size(500,20),
+    padding: EdgeInsets.all(20),
+
+  );
   AuthService _authService=AuthService();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text('LOGIN' ,style:TextStyle(fontWeight: FontWeight.bold)),
         ),
@@ -31,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
             key: formKey,
                 child: Column(
 
-              mainAxisAlignment: MainAxisAlignment.center,
+
               children: <Widget>[
                 const Icon(Icons.account_circle_sharp, size: 120),
                 const Text('Sign with e-mail and password.',style:TextStyle(fontWeight: FontWeight.bold)),
@@ -45,11 +52,11 @@ padding: const EdgeInsets.only(top:20),
                     ),
                         border: OutlineInputBorder( ),
                        labelText: 'E-mail'),
-                    validator: (_emailController){
-                      if(_emailController!.isEmpty ){
+                    validator: (emailController){
+                      if(emailController!.isEmpty ){
                         return "Please enter E-mail";
                       }
-                      if(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(_emailController)){
+                      if(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(emailController)){
                         return "Enter correct Email";}
                       else {
                         return null;}
@@ -68,11 +75,11 @@ padding: const EdgeInsets.only(top:20),
                         ),
                         border: OutlineInputBorder(), labelText: 'Password'),
                     obscureText: true,
-validator: (_passwordController){
-  if(_passwordController!.isEmpty ){
+validator: (passwordController){
+  if(passwordController!.isEmpty ){
     return "Please enter password";
   }
-                      if(!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$').hasMatch(_passwordController)){
+                      if(!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$').hasMatch(passwordController)){
                         return "Password should contain Capital, small letter & Number and at least 8 digit";}
 
 
@@ -84,7 +91,7 @@ validator: (_passwordController){
                 Container(
                   padding: const EdgeInsets.all(0),
                   height: 50,
-                  child: ElevatedButton(
+                  child: ElevatedButton( style:textButtonStyle,
                       child: const Text(
                         'LOGIN',
                         style: TextStyle(

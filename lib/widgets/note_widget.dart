@@ -5,7 +5,7 @@ import 'package:notesapp/pages/EditPage.dart';
 Widget NoteWidget(BuildContext context){
 
   return Padding(
-      padding:EdgeInsets.all(20),
+      padding:const EdgeInsets.all(20),
     child:Container(
 
     color: Colors.grey,
@@ -15,20 +15,20 @@ Widget NoteWidget(BuildContext context){
     child:Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text('Title', style: TextStyle(
+       const  Text('Title', style: TextStyle(
           color:Colors.black,fontWeight: FontWeight.bold
         ),),
-        Divider(height: 10),
+       const  Divider(height: 10),
 
-        Text('Content', style:TextStyle(
+        const Text('Content', style:TextStyle(
           color:Colors.black
         )),
 Align(alignment: Alignment.topRight,
   child:IconButton(
 
-  icon: Icon(Icons.edit),
+  icon: const Icon(Icons.edit),
   onPressed:() => Navigator.push(context,
-    MaterialPageRoute(builder: (context)=> EditPage()),),
+    MaterialPageRoute(builder: (context)=> const EditPage()),),
 
 
 

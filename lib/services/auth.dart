@@ -12,14 +12,22 @@ signOut()async{
     return await _auth.signOut();
   }
 Future<User?>createPerson(String name,String email,String password) async{
-    var user= await _auth.createUserWithEmailAndPassword(email: email, password: password);
-    await _firestore.collection("USERS")
+
+
+  var user = await _auth.createUserWithEmailAndPassword(
+      email: email, password: password);
+
+    await _firestore.collection("users")
+
     .doc(user.user!.uid)
     .set({
-      "Name":name,
+
+      "display name":name,
       "email":email
     });
+
     return user.user;
+
 
 }
 

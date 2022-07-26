@@ -1,13 +1,22 @@
 
 import 'package:flutter/material.dart';
-import 'package:notesapp/widgets/Note_List_widget.dart';
+import 'package:notesapp/services/note.dart';
 
 
-class AddNote extends StatelessWidget {
-  final TextEditingController _title = TextEditingController();
+class AddNote extends StatefulWidget {
 
   AddNote(BuildContext context);
 
+  @override
+  State<AddNote> createState() => _AddNoteState();
+}
+
+class _AddNoteState extends State<AddNote> {
+  final TextEditingController _title = TextEditingController();
+
+  final TextEditingController _content = TextEditingController();
+
+  NoteService _noteService=NoteService();
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +36,15 @@ class AddNote extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           child: const Text('OK'),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => NoteListWidget(context),
-            );
-          },
+          onPressed: () {  _noteService.createNote(_title.text).then((value) => Navigator.pop(context));
+
+          }
+
+
+
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'CANCEL'),
+          onPressed: () => Navigator.pop(context),
           child: const Text('CANCEL'),
         ),
       ],

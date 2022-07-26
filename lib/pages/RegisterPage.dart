@@ -14,18 +14,24 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController=TextEditingController();
   final TextEditingController _passwordController=TextEditingController();
   final TextEditingController _passwordAgainController=TextEditingController();
+  final ButtonStyle textButtonStyle=ElevatedButton.styleFrom(
+    primary:Colors.grey,
+    minimumSize: Size(500,30),
+    padding: EdgeInsets.all(20),
 
-  AuthService _authService=AuthService();
+  );
+  final AuthService _authService=AuthService();
   final formKey = GlobalKey<FormState>();
-final TextEditingController _pass=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
         centerTitle: true,
-        title:Text('REGISTER',style:TextStyle(fontWeight: FontWeight.bold))
+        title:const Text('REGISTER',style:TextStyle(fontWeight: FontWeight.bold))
       ),
-      body:Container( padding: EdgeInsets.all(10),
+      body:Container( padding: const EdgeInsets.all(10),
 
         child: Form(  key: formKey,
           child:Column(
@@ -47,7 +53,7 @@ final TextEditingController _pass=TextEditingController();
                     //if(!isValidName()){return "Enter valid name"}
 if(value!.isEmpty){return "Please enter your name";}
 
-if(!RegExp(r"^\s*([A-Za-z]{onur,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value)){
+if(!RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(value)){
   return "Enter valid name";
 } else {
   return null;}
@@ -69,8 +75,9 @@ if(!RegExp(r"^\s*([A-Za-z]{onur,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(va
                       if(value!.isEmpty ){
                         return "Please enter E-mail";
                       }
-                      if(!RegExp(r'^[\w-@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)){
+                      if(!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
                         return "Enter correct Email";}
+
                       else {
                         return null;}
                     },
@@ -112,11 +119,11 @@ if(!RegExp(r"^\s*([A-Za-z]{onur,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(va
                         labelText: 'Confirm Password'
                     ),
                     obscureText: true,
-                    validator: (_passwordAgainController){
-                      if(_passwordAgainController!.isEmpty ){
+                    validator: (passwordAgainController){
+                      if(passwordAgainController!.isEmpty ){
     return "It can't be empty";
     }
-                      if(_passwordAgainController!=_passwordController.text){
+                      if(passwordAgainController!=_passwordController.text){
                         return "not match";
                       }
 
@@ -129,17 +136,26 @@ if(!RegExp(r"^\s*([A-Za-z]{onur,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(va
                   )
               ),
               Container(padding: const EdgeInsets.all(10),
-                  child:ElevatedButton(
+                  child:ElevatedButton( style:textButtonStyle,
                     onPressed: (){
                       { if(formKey.currentState!.validate()){
+
                         _authService.createPerson(_nameController.text, _emailController.text, _passwordController.text).then((value) {
+
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: const Text('Register suceed'),
+                            action: SnackBarAction(
+                              label:'OK',
+                              onPressed: (){},
+                            ),
+                          ),);
+
                       return Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginPage()));});
-
                       }
                       }
 
                       }
-                    , child: Text('Create an account',style:TextStyle(fontWeight: FontWeight.bold)),
+                    , child:const Text('Create an account',style:TextStyle(fontWeight: FontWeight.bold)),
                   )
               ),
 
@@ -149,7 +165,7 @@ if(!RegExp(r"^\s*([A-Za-z]{onur,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$").hasMatch(va
                   onPressed: (){ Navigator.push(
                     context,
                     MaterialPageRoute(builder:(context) =>const LoginPage()),
-                  );}, child: Text('Back to login',style:TextStyle(fontWeight: FontWeight.bold)),
+                  );}, child: const Text('Back to login',style:TextStyle(fontWeight: FontWeight.bold)),
                 )
               )
             ],
