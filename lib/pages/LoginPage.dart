@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController=TextEditingController();
   final TextEditingController _passwordController=TextEditingController();
+
   final ButtonStyle textButtonStyle=ElevatedButton.styleFrom(
     primary:Colors.grey,
     minimumSize: Size(500,20),
@@ -26,14 +27,15 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Center(
+    child:Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text('LOGIN' ,style:TextStyle(fontWeight: FontWeight.bold)),
         ),
         body: Container(
-            padding:EdgeInsets.all(20),
+            padding:const EdgeInsets.all(20),
             child: Form(
             key: formKey,
                 child: Column(
@@ -45,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
 padding: const EdgeInsets.only(top:20),
                   child: TextFormField(
+
                     controller: _emailController,
                     decoration: const InputDecoration( prefixIcon: Padding(
                         padding: EdgeInsets.all(0),
@@ -128,6 +131,6 @@ validator: (passwordController){
                     ); },
                 )
               ],
-            ))));
+            )))));
   }
 }

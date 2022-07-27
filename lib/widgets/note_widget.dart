@@ -1,8 +1,9 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notesapp/pages/EditPage.dart';
 
-Widget NoteWidget(BuildContext context){
+Widget NoteWidget(BuildContext context,QueryDocumentSnapshot doc){
 
   return Padding(
       padding:const EdgeInsets.all(20),
@@ -15,14 +16,11 @@ Widget NoteWidget(BuildContext context){
     child:Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-       const  Text('Title', style: TextStyle(
+       Text(
+         doc['title'], style: TextStyle(
           color:Colors.black,fontWeight: FontWeight.bold
         ),),
-       const  Divider(height: 10),
 
-        const Text('Content', style:TextStyle(
-          color:Colors.black
-        )),
 Align(alignment: Alignment.topRight,
   child:IconButton(
 
