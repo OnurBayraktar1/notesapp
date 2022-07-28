@@ -1,9 +1,8 @@
-import 'dart:js';
 
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
-import 'package:notesapp/pages/LoginPage.dart';
+import 'package:notesapp/pages/homepage.dart';
 
 
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const LoginPage(),
+      home: const HomePage(),
     );
   }
 }

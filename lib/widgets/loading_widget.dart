@@ -1,17 +1,17 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget Loading_Widget(BuildContext context){
-
+Widget Loading_Widget(BuildContext context) {
   return Center(
-    child:Column(
-
-      children:<Widget>[
-        Image.asset('/img/load.png'),
-        const SizedBox(height:20),
-
-      ]
-    )
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const CircularProgressIndicator(),
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: const Text('Loading...'),
+        ),
+      ],
+    ),
   );
-
 }

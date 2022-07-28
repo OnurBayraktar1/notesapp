@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notesapp/pages/LoginPage.dart';
-import 'package:notesapp/';
 import 'package:notesapp/widgets/Note_List_widget.dart';
 import 'package:notesapp/widgets/add_note_widget.dart';
 import 'package:notesapp/services/auth.dart';
@@ -19,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late String uid = '';
+  late String title = '';
   var currentUser = FirebaseAuth.instance.currentUser;
   final AuthService _authService = AuthService();
 
@@ -30,7 +29,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text(
+          'MY NOTES',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         actions: <Widget>[
           IconButton(
               icon: const Icon(Icons.logout),
@@ -40,12 +43,8 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               }),
         ],
-        centerTitle: true,
-        title: const Text(
-          'MY NOTES',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
       ),
+
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add, color: Colors.white, size: 40),
         onPressed: () {
@@ -56,29 +55,21 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: usersCollection.getNoteList(),
-
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          stream: usersCollection.doc(currentUser?.uid).collection('notes').snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return const Text('Something went wrong');
+              return Error_Widget(context);
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text("Loading");
+              return Loading_Widget(context);
             }
             if (snapshot.data!.docs.isEmpty) {
               return EmptyNoteWidget(context);
             }
-            return ListView(
-              children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
-                return ListTile(
-                  title: Text(data['title']),
-                  subtitle: Text(data['uid']),
-                );
-              }).toList(),
-            );
+
+           return NoteListWidget(context,snapshot);
+
+
           }),
     );
   }

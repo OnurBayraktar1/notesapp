@@ -38,8 +38,21 @@ class NoteService {
         .delete();
     return null;
   }
-Future<CollectionReference<Map<String, dynamic>>>getNoteList() async{
-    return await notes;
-}
+ Future<NoteService?> updateNoteTitle(String title, String uuid) async {
+   await notes
+       .doc(uuid)
+       .update(
+       {
 
+         'title': title,
+
+       }).then((value) => null);
+   return null;
+
+ }
+ Future<DocumentSnapshot>getNotes(String uuid) async{
+
+   return notes.doc(uuid).get();
+    // return null;
+ }
 }
