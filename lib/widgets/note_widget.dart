@@ -4,20 +4,21 @@ import 'package:notesapp/pages/EditPage.dart';
 import 'package:notesapp/services/note.dart';
 import 'package:notesapp/widgets/update_title_widget.dart';
 
-Widget NoteWidget(BuildContext context, String title, String uuid) {
+Widget NoteWidget(BuildContext context, String title, String uuid,String updateTime) {
   return InkWell(
+
       child: Card(
-        margin: const EdgeInsets.all(10),
-        borderOnForeground: true,
+       margin: const EdgeInsets.all(10),
+        //borderOnForeground: true,
         elevation: 2,
         color: Colors.grey,
 
-        child: Container(
+        child: Center(
 
-          padding: const EdgeInsets.all(10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+
               Align(
                   alignment: Alignment.topRight,
                   child: PopupMenuButton(
@@ -47,12 +48,22 @@ Widget NoteWidget(BuildContext context, String title, String uuid) {
                       },
                   )
               ),
-              const SizedBox(height: 20),
-              Image.asset("/img/icon_note.png", height: 40),
-              const SizedBox(height: 20),
-              Text(title)
 
-            ],
+
+              Image.asset("/img/icon_note.png"),
+              const SizedBox(height: 10),
+              Text(title,overflow: TextOverflow.ellipsis,style: const TextStyle(
+                fontWeight: FontWeight.bold,fontSize: 20
+              ),),
+              const SizedBox(height: 10),
+             Align(   alignment: Alignment.bottomRight,
+child: Text('Update Time:$updateTime',overflow: TextOverflow.ellipsis ,style: TextStyle(
+  decorationThickness: 2
+),),),
+
+             ],
+
+
           ),
         ),
       ),

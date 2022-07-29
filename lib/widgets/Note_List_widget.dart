@@ -19,6 +19,7 @@ Widget NoteListWidget(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot
     document.data()! as Map<String, dynamic>;
     var title =data['title'];
     var uuid=data['uid'];
-    return NoteWidget(context, title,uuid);
+    var updateTime=data['update time'];
+    return NoteWidget(context, title,uuid,updateTime);
       }).toList(), );
 }

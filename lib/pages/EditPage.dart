@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notesapp/services/note.dart';
@@ -26,13 +27,15 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
+          onPressed: () { var updateTime=formatDate(DateTime.now(), [yyyy,'/',mm,'/',dd]).toString();
             _noteService
-                .updateNote(_controller.text, widget.uuid.toString())
+                .updateNote(_controller.text, widget.uuid.toString(),updateTime)
                 .then((value) {
               return Navigator.pop(context);
             });
@@ -54,6 +57,8 @@ class _EditPageState extends State<EditPage> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
             _controller.text = data['content'] ?? '';
+
+
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

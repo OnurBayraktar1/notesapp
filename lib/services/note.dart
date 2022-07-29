@@ -1,5 +1,6 @@
 import'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:notesapp/services/auth.dart';
 import 'package:uuid/uuid.dart';
 class NoteService {
@@ -9,25 +10,25 @@ class NoteService {
  var  notes= FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(
   'notes');
 
-  Future<NoteService?> createNote(String title) async {
+  Future<NoteService?> createNote(String title,String updateTime) async {
     var uuid = Uuid().v1();
 
     await notes
         .doc(uuid).set({
       'uid': uuid,
       'title': title,
-
+'update time':updateTime
     });
   }
 
-  Future<NoteService?> updateNote(String content, String uuid) async {
+  Future<NoteService?> updateNote(String content, String uuid,String updateTime) async {
     await notes
         .doc(uuid)
         .update(
         {
 
           'content': content,
-
+          'update time':updateTime
         }).then((value) => null);
     return null;
 

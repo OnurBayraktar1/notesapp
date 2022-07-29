@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notesapp/services/note.dart';
-
+import 'package:date_format/date_format.dart';
 Widget AddNote(BuildContext context) {
   final TextEditingController title = TextEditingController();
+  final time=formatDate(DateTime.now(), [yyyy,'/',mm,'/',dd]).toString();
 
     return AlertDialog(
       content: Column(
@@ -22,7 +23,7 @@ Widget AddNote(BuildContext context) {
             child: const Text('OK'),
             onPressed: () {
               NoteService()
-                  .createNote(title.text)
+                  .createNote(title.text,time)
                   .then((value) => Navigator.pop(context));
             }),
         TextButton(

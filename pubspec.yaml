@@ -38,6 +38,11 @@ dependencies:
   firebase_core: ^1.19.1
   firebase_auth: ^3.4.2
   cloud_firestore: ^3.3.0
+  provider: ^6.0.3
+  authentication_provider: ^1.0.1
+  date_format: ^2.0.6
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
