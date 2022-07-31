@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body:Center(child: StreamBuilder<QuerySnapshot>(
           stream: usersCollection.doc(currentUser?.uid).collection('notes').snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -71,6 +71,6 @@ class _HomePageState extends State<HomePage> {
 
 
           }),
-    );
+    ));
   }
 }

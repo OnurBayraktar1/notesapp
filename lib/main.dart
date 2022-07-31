@@ -1,18 +1,13 @@
 
-import 'package:authentication_provider/authentication_state.dart' as AuthState;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
-import 'package:notesapp/pages/LoginPage.dart';
 import 'package:notesapp/pages/homepage.dart';
-import 'package:authentication_provider/authentication_provider.dart';
-import 'package:notesapp/widgets/loading_widget.dart';
+
 
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options:  const FirebaseOptions(
         apiKey:"AIzaSyBAicRvIBBGoXB7ni3wBGiqLB1QAH_25kE",
@@ -21,50 +16,20 @@ void main() async{
         projectId: "noteapp-c59b2")
   );
 
-  runApp( MyApp());
+  runApp(const MyApp());
 }
-class MyApp extends StatefulWidget {
+
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late AuthenticationController controller;
-
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AuthenticationController<User>(context);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-        title: 'MY NOTES',
-        theme: ThemeData(
-          primarySwatch: Colors.grey,
-        ),
-        home:Authanticate()
 
+    return  MaterialApp(
+      title: 'MY NOTES',
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+      ),
+      home: const HomePage(),
     );
   }
-
 }
-
-class Authanticate extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser=FirebaseAuth.instance.currentUser;
-    if(firebaseUser!=null){
-      return HomePage();
-    }
-    return LoginPage();
-
-  }
-}
-
-
-

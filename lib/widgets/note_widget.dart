@@ -6,19 +6,13 @@ import 'package:notesapp/widgets/update_title_widget.dart';
 
 Widget NoteWidget(BuildContext context, String title, String uuid,String updateTime) {
   return InkWell(
-
       child: Card(
-       margin: const EdgeInsets.all(10),
-        //borderOnForeground: true,
-        elevation: 2,
+        margin: const EdgeInsets.all(10),
+        borderOnForeground: true,
         color: Colors.grey,
-
-        child: Center(
-
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-
               Align(
                   alignment: Alignment.topRight,
                   child: PopupMenuButton(
@@ -48,24 +42,17 @@ Widget NoteWidget(BuildContext context, String title, String uuid,String updateT
                       },
                   )
               ),
-
-
-              Image.asset("/img/icon_note.png"),
               const SizedBox(height: 10),
-              Text(title,overflow: TextOverflow.ellipsis,style: const TextStyle(
-                fontWeight: FontWeight.bold,fontSize: 20
-              ),),
+              Image.asset("/img/icon_note.png", height: 40),
               const SizedBox(height: 10),
-             Align(   alignment: Alignment.bottomRight,
-child: Text('Update Time:$updateTime',overflow: TextOverflow.ellipsis ,style: TextStyle(
-  decorationThickness: 2
-),),),
+              Text(title),
+              SizedBox(height: 20,),Align(   alignment: Alignment.bottomRight,
+          child: Text('Update Time:$updateTime',overflow: TextOverflow.ellipsis ,style: TextStyle(
+              decorationThickness: 2
+          ),),)
+            ],
+           ),
 
-             ],
-
-
-          ),
-        ),
       ),
       onTap: () {
         Navigator.push(

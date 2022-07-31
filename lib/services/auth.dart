@@ -1,7 +1,4 @@
-import 'package:authentication_provider/authentication_provider.dart';
-import 'package:authentication_provider/authentication_provider.dart';
-import 'package:authentication_provider/authentication_state.dart';
-import 'package:authentication_provider/authentication_state.dart'as authState;
+
 import'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notesapp/pages/LoginPage.dart';
