@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notesapp/pages/RegisterPage.dart';
 import 'package:notesapp/pages/homepage.dart';
 import 'package:notesapp/services/auth.dart';
-import 'package:notesapp/widgets/empty_note_widget.dart';
-import 'package:notesapp/widgets/note_widget.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'EditPage.dart';
 
@@ -15,13 +16,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
+  Future<bool> _onWillPop() async {
+    return false; }
+    final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  AuthService _authService = AuthService();
+
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return      WillPopScope(
+        onWillPop: _onWillPop,
+     child: Scaffold(
         body: Center(
           child: Container(
             width: 400,
@@ -31,15 +36,15 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
+                  const Center(
                       child:Icon(Icons.account_circle_sharp,size: 120,)
                   ),
-SizedBox(height: 10,),
+const SizedBox(height: 10,),
                   Container(
 
-                    margin: EdgeInsets.all(10),
-                   child:Center(
-                     child: const Text(
+                    margin: const EdgeInsets.all(10),
+                   child:const Center(
+                     child: Text(
                        "Sign with e-mail and password",
                        style: TextStyle(
                          fontSize: 18,
@@ -48,10 +53,10 @@ SizedBox(height: 10,),
                    )
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: _emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
                         prefixIcon: Icon(Icons.email, color:Colors.black),
@@ -69,11 +74,11 @@ SizedBox(height: 10,),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: _passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Password',
 
@@ -82,11 +87,7 @@ SizedBox(height: 10,),
                         if (passwordController!.isEmpty) {
                           return "Please enter password";
                         }
-                        if (!RegExp(
-                            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')
-                            .hasMatch(passwordController)) {
-                          return "Password should contain Capital, small letter & Number and at least 8 digit";
-                        } else {
+                         else {
                           return null;
                         }
                       },
@@ -96,32 +97,44 @@ SizedBox(height: 10,),
                   Container(
                     height: 50,
                     width: double.infinity,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     child: ElevatedButton(
                         child: const Text('LOGIN'),
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            _authService
+                        onPressed: ()
+                        {    if(formKey.currentState!.validate()){
+                          AuthService()
                                 .signIn(_emailController.text,
                                 _passwordController.text)
                                 .then((value) {
                               return Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()));
+                                      builder: (context) => const HomePage()));
+                            }).catchError((dynamic error){
+                              if (error.code.contains('invalid-email')) {
+                                _buildErrorMessage(context,"Invalid mail address");
+                              }
+                              if (error.code.contains('user-not-found')) {
+                                _buildErrorMessage(context,"E-mail or password is wrong.Please check them");
+                              }
+                              if (error.code.contains('wrong-password')) {
+                                _buildErrorMessage(context,"E-mail or password is wrong.Please check them");
+                              }
+                              print(error.message);
+
                             });
-                          }
-                        }
+
+                        } }
                     ),
                   ),
                   Container(
                     width: double.infinity,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     child: Column(
 
                       children: [
-                        Text("Do not have an account yet?"),
-                        SizedBox(height: 20,),
+                        const Text("Do not have an account yet?"),
+                        const SizedBox(height: 20,),
                         TextButton(
 
                           child: const Text('SIGN UP'),
@@ -129,7 +142,7 @@ SizedBox(height: 10,),
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RegisterPage()));
+                                    builder: (context) => const RegisterPage()));
                           },
                         ),
                       ],
@@ -139,6 +152,16 @@ SizedBox(height: 10,),
               ),
             ),
           ),
-        ));
+        )));
   }
 }
+
+void _buildErrorMessage(context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(
+     SnackBar(
+        content: Text(text),
+       backgroundColor: Colors.red,
+    ),
+  );
+}
+

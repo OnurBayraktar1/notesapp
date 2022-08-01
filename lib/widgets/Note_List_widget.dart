@@ -9,10 +9,14 @@ import 'package:notesapp/widgets/note_widget.dart';
 
 
 Widget NoteListWidget(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
-
+var count=3;
+if(MediaQuery.of(context).size.width<700){
+  count=2;
+}
   return GridView(
-      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+    padding: EdgeInsets.all(20),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: count,
       ),
       children: snapshot.data!.docs.map((DocumentSnapshot document) {
     Map<String, dynamic> data =
@@ -20,6 +24,8 @@ Widget NoteListWidget(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot
     var title =data['title'];
     var uuid=data['uid'];
     var updateTime=data['update time'];
-    return NoteWidget(context, title,uuid,updateTime);
+    return Container(
+        child:NoteWidget(context, title,uuid,updateTime)
+    );
       }).toList(), );
 }

@@ -27,8 +27,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text(
           'MY NOTES',
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add, color: Colors.white, size: 40),
+        child: const Icon(Icons.note_add, color: Colors.white, size: 40),
         onPressed: () {
           showDialog(
             context: context,
@@ -54,23 +55,27 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      body:Center(child: StreamBuilder<QuerySnapshot>(
-          stream: usersCollection.doc(currentUser?.uid).collection('notes').snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Error_Widget(context);
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loading_Widget(context);
-            }
-            if (snapshot.data!.docs.isEmpty) {
-              return EmptyNoteWidget(context);
-            }
+      body:Center(child: Flexible(
 
-           return NoteListWidget(context,snapshot);
+        child:
+            StreamBuilder<QuerySnapshot>(
+            stream: usersCollection.doc(currentUser?.uid).collection('notes').snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Error_Widget(context);
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Loading_Widget(context);
+              }
+              if (snapshot.data!.docs.isEmpty) {
+                return EmptyNoteWidget(context);
+              }
+
+             return NoteListWidget(context,snapshot);
 
 
-          }),
-    ));
+            }),
+
+    )));
   }
 }

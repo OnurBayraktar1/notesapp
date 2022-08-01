@@ -27,9 +27,10 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       title: 'MY NOTES',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const HomePage(),
     );
   }
 }
+
