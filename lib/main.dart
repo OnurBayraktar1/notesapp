@@ -2,7 +2,10 @@
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:notesapp/pages/EditPage.dart';
+import 'package:notesapp/pages/LoginPage.dart';
 import 'package:notesapp/pages/homepage.dart';
+
 
 
 
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const HomePage(),
+      home: LoginPage(),
     );
   }
 }

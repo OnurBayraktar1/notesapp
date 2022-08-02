@@ -41,6 +41,13 @@ dependencies:
   provider: ^6.0.3
   authentication_provider: ^1.0.1
   date_format: ^2.0.6
+  fluttertoast: ^8.0.9
+  responsive_grid: ^2.1.0
+  community_material_icon: ^5.3.45
+  html_editor_enhanced: ^2.5.0
+
+
+
 
 
 dev_dependencies:

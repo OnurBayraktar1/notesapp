@@ -3,8 +3,14 @@ import 'package:notesapp/services/note.dart';
 
 Widget UpdateNoteTitle(BuildContext context, String uuid) {
   final TextEditingController title = TextEditingController();
-  return AlertDialog(
-    content: Column(
+  return Center(
+    child:AlertDialog(
+
+      insetPadding: EdgeInsets.all(120),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30))
+      ),
+    content: Column( mainAxisSize:MainAxisSize.max ,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         TextFormField(
@@ -27,5 +33,5 @@ Widget UpdateNoteTitle(BuildContext context, String uuid) {
         child: const Text('CANCEL'),
       ),
     ],
-  );
+  ));
 }

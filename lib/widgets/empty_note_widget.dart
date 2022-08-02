@@ -5,7 +5,7 @@ Widget EmptyNoteWidget(BuildContext context){
     child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children:<Widget>[
-          Image.asset("/img/note.png",width:150 ),
+          Image.asset("/img/note.png",width:150 ,color: Colors.blueGrey,),
           const SizedBox(height: 20),
           const Text('No notes! Click button to add notes.',style: TextStyle(fontSize: 20)),
         ]

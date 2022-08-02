@@ -6,6 +6,7 @@ Widget AddNote(BuildContext context) {
   final time=formatDate(DateTime.now(), [yyyy,'/',mm,'/',dd]).toString();
 
     return AlertDialog(
+      insetPadding: EdgeInsets.all(120),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

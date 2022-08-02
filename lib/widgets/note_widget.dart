@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notesapp/pages/EditPage.dart';
+import 'package:notesapp/pages/html_editor_page.dart';
+import 'package:notesapp/services/auth.dart';
 import 'package:notesapp/services/note.dart';
 import 'package:notesapp/widgets/update_title_widget.dart';
 
@@ -24,9 +27,26 @@ Widget NoteWidget(
                           value: 0,
                           child: Text('Edit'),
                         ),
-                        const PopupMenuItem<int>(
+                        PopupMenuItem<int>(
                           value: 1,
-                          child: Text('Delete'),
+                          child: TextButton(
+                              onPressed: (){
+                            showDialog(
+                                context: context, builder: (BuildContext context){
+                              return Center(
+                                  child:AlertDialog(
+                                content: Text('Are u sure'),
+                                actions: [
+                                  TextButton(onPressed: (){NoteService().deleteNote(uuid).then((value) =>
+                                    Navigator.pop(context));
+                                  }, child:Text('YES')),
+                                  TextButton(onPressed: (){
+                                    Navigator.pop(context);
+                                  }, child:Text('NO'))
+                                ],
+                              ));
+                            });
+                          }, child: Text('Delete',style: TextStyle(color:Colors.black),))
                         )
                       ];
                     },
@@ -35,26 +55,27 @@ Widget NoteWidget(
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return UpdateNoteTitle(context, uuid);
+                            var height = MediaQuery.of(context).size.height;
+                            var width = MediaQuery.of(context).size.width;
+                            return Container(
+                              height: height - 400,
+                              width: width - 400,
+                              child: UpdateNoteTitle(context, uuid),
+                            );
                           },
                         );
                       }
-                      if (value == 1) {
-                        NoteService().deleteNote(uuid);
-                      }
+
                     },
                   )),
-Flexible(child: Icon(Icons.description,size: 60,color: Colors.blueGrey,),),
-
-
-
+ Flexible(child: Icon(Icons.description,size: 40,color: Colors.blueGrey,),),
 
 
 // const Flexible(child:
 // SizedBox(height: 10),),
-              Spacer(),
+              const Spacer(),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 width: double.infinity,
                 child:Center(
                   child:Flexible(
@@ -68,7 +89,7 @@ Flexible(child: Icon(Icons.description,size: 60,color: Colors.blueGrey,),),
                 ),
               ),),),
               const Flexible(
-                child: SizedBox(height: 10),
+                child: SizedBox(height: 20),
               ),
               Align(
                   alignment: Alignment.bottomRight,
@@ -85,7 +106,7 @@ Flexible(child: Icon(Icons.description,size: 60,color: Colors.blueGrey,),),
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => EditPage(uuid: uuid, title: title)),
+              builder: (context) => HtmlEditorExample(uuid: uuid, title: title)),
         );
       });
 }

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:notesapp/services/note.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 class EditPage extends StatefulWidget {
-  EditPage
+  const EditPage
 
   ( {super.key, this.uuid,this.title});
 
@@ -23,14 +24,17 @@ class _EditPageState extends State<EditPage> {
   var currentUser = FirebaseAuth.instance.currentUser;
   final TextEditingController _controller = TextEditingController();
 
-  NoteService _noteService = NoteService();
+  final NoteService _noteService = NoteService();
 
-  @override
+@override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title:Text(widget.title.toString(),style: TextStyle(
+          fontWeight: FontWeight.bold,color: Colors.black
+        ),),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () { var updateTime=formatDate(DateTime.now(), [yyyy,'/',mm,'/',dd]).toString();
@@ -47,44 +51,47 @@ class _EditPageState extends State<EditPage> {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text("Something went wrong");
+            return const Text("Something went wrong");
           }
 
           if (snapshot.hasData && !snapshot.data!.exists) {
-            return Text("Document does not exist");
+            return const Text("Document does not exist");
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
             _controller.text = data['content'] ?? '';
-
-
             return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  widget.title.toString(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextFormField(
+
+              
+
+               const SizedBox(height: 15,),
+                Container(
+                  padding: const EdgeInsets.all(20),
+child:Center(
+               child: TextFormField(
                   controller: _controller,
 
                   decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.all(20),
                     prefixIcon: Padding(
                       padding: EdgeInsets.all(20),
                     ),
-                    //border:OutlineInputBorder(),
+                    border:OutlineInputBorder(),
                     labelText: 'Type Something',
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
 
                   ),
-                ),
+                 maxLines: 30,
+                 minLines: 30,
+                ),),),
               ],
             );
           }
 
-          return Text("loading");
+          return const Text("loading");
         },
       ),
 

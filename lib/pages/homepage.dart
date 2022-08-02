@@ -47,9 +47,10 @@ class _HomePageState extends State<HomePage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.note_add, color: Colors.white, size: 40),
+        child: const Icon(Icons.note_add, color: Colors.white, size: 20),
         onPressed: () {
           showDialog(
+
             context: context,
             builder: (BuildContext context) => AddNote(context),
           );

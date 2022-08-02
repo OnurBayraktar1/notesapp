@@ -26,23 +26,17 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-        ),
+
         body: Center(
           child: Container(
+
             width: 400,
             child:Form(
               key: formKey,
               child: Column(
-
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [Center(
-                  child: Icon(Icons.account_circle_sharp,size: 120,),
+                  child: Icon(Icons.account_circle_sharp,size: 120,color: Colors.blueGrey,),
                 ),
 
                   Center(
@@ -61,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Name',
-                        prefixIcon: Icon(Icons.person,color:Colors.black),
+                        prefixIcon: Icon(Icons.person,color:Colors.blueGrey),
                       ),
                       validator: (value){
                         //if(!isValidName()){return "Enter valid name"}
@@ -81,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
-                        prefixIcon: Icon(Icons.email, color:Colors.black),
+                        prefixIcon: Icon(Icons.email, color:Colors.blueGrey),
                       ),
                       validator: (value){
                         if(value!.isEmpty ){
@@ -103,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock,color: Colors.black,)),
+                          prefixIcon: Icon(Icons.lock,color: Colors.blueGrey,)),
                       validator: (value){
                         if(value!.isEmpty ){
                           return "Please enter password";
@@ -124,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Confirm Password',
-                          prefixIcon: Icon(Icons.lock,color: Colors.black,)),
+                          prefixIcon: Icon(Icons.lock,color: Colors.blueGrey,)),
 
                       validator: (passwordAgainController){
                         if(passwordAgainController!.isEmpty ){

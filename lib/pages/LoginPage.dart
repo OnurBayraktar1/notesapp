@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Center(
-                      child:Icon(Icons.account_circle_sharp,size: 120,)
+                      child:Icon(Icons.account_circle_sharp,size: 120,color: Colors.blueGrey,)
                   ),
 const SizedBox(height: 10,),
                   Container(
@@ -59,7 +59,7 @@ const SizedBox(height: 10,),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
-                        prefixIcon: Icon(Icons.email, color:Colors.black),
+                        prefixIcon: Icon(Icons.email, color:Colors.blueGrey),
                       ),validator: (emailController) {
                       if (emailController!.isEmpty) {
                         return "Please enter E-mail";
@@ -82,7 +82,7 @@ const SizedBox(height: 10,),
                           border: OutlineInputBorder(),
                           labelText: 'Password',
 
-                          prefixIcon: Icon(Icons.lock,color: Colors.black,)),
+                          prefixIcon: Icon(Icons.lock,color: Colors.blueGrey,)),
                       validator: (passwordController) {
                         if (passwordController!.isEmpty) {
                           return "Please enter password";

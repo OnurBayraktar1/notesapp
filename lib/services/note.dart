@@ -21,7 +21,7 @@ class NoteService {
     });
   }
 
-  Future<NoteService?> updateNote(String content, String uuid,String updateTime) async {
+  Future<void> updateNote(String content, String uuid,String updateTime) async {
     await notes
         .doc(uuid)
         .update(
@@ -30,7 +30,6 @@ class NoteService {
           'content': content,
           'update time':updateTime
         }).then((value) => null);
-    return null;
 
   }
 
